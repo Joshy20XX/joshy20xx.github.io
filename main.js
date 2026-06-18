@@ -25,10 +25,11 @@ const timer = new THREE.Timer();
 timer.connect(document);
 
 //Create the renderer
+const container = document.getElementById('threejs-backdrop');
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setAnimationLoop(animate);
-document.body.append(renderer.domElement);
+container.append(renderer.domElement);
 
 //Set scene fog color
 scene.background = new THREE.Color().setColorName("black");
