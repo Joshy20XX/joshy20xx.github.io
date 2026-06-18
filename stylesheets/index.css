@@ -49,6 +49,6 @@
     height: 20px;
 }
 #threejs-backdrop {
-    position: absolute;
+    position: relative;
     height: 0px;
 }
