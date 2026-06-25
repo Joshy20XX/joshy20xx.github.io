@@ -1,3 +1,10 @@
+.space-grotesk-font {
+    font-family: "Space Grotesk", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
 .content1 {
     position: relative;
     color: rgb(255, 255, 255);
@@ -39,14 +46,46 @@
     position: relative;
     width: 50px;
     height: 50px;
-    top: 50px;
+    top: 40px;
     right: 30px;
     background-color: white;
     rotate: 45deg;
+    transition: transform 0.2s ease-out;
+}
+@keyframes fade-in-txt {
+    from {
+        opacity: 0.0;
+    }
+    to {
+        opacity: 1.0;
+    }
+}  
+.navthing:hover {
+    transform: scale(1.24);
+    .menutext {
+        position: relative;
+        color: white;
+        left: 45px;
+        top: -150px;
+        rotate: -45deg;
+        animation: fade-in-txt 0.2s;
+    }
 }
 .navdesign {
     width: 5px;
     height: 20px;
+}
+.navarrow {
+    position: relative;
+    width: 0;
+    height: 0;
+    border-top: 50px solid transparent;
+    border-bottom: 50px solid transparent;
+    top: -62px;
+    right: -17px;
+    border-left: 50px solid black;
+    transform: scale(0.2);
+    rotate: -45deg;
 }
 #threejs-backdrop {
     position: relative;
