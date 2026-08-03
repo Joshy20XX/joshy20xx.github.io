@@ -11,7 +11,8 @@ import * as THREE from 'three'
 var FOV = 90, near = 0.1, far = 1500;
 
 //Setup star position load
-const INIT_NUM_OF_STARS = 75;
+const INIT_NUM_OF_STAR_CLUSTERS = 300;
+const NUM_INSTANCED_STARS = 15;
 const MIN_X_SPREAD = -30, MAX_X_SPREAD = 30;
 const MIN_Y_SPREAD = 5, MAX_Y_SPREAD = -7;
 const MIN_Z_SPREAD = 8, MAX_Z_SPREAD = -30;
@@ -79,22 +80,23 @@ camera.position.z = 3.0;
 //Refresh the window
 function animate(time) {
     //Move each star in the list
-    stars.forEach((star) => {
+    //NEW Method: random object lookup
+    let i = Math.trunc(RandomRange(0, INIT_NUM_OF_STAR_CLUSTERS));
 
-        //Discard the star if it's too far away
-        if (star.position.z > camera.position.z + 5) {
-            const index = stars.indexOf(star);
-            scene.remove(star);
+    //Discard the star if it's too far away
+    if (stars[i].position.z > camera.position.z + 7) {
+        scene.remove(stars[i]);
 
-            //Also change the array
-            if (index !== -1) {
-                stars.splice(index,1);
-            }
-
-            //Then incrementally add stars after frame 1
-            spawnStarLater(star_obj, material);
-
+        //Also change the array
+        if (i !== -1) {
+            stars.splice(i,1);
         }
+
+        //Then incrementally add stars after frame 1
+        spawnStarLater(star_obj, material);
+
+    }
+    stars.forEach((star) => {
         star.position.z += velocity / 1000;
     });
     renderer.render(scene, camera);
@@ -112,8 +114,8 @@ function loadColorTexture(path) {
 //Star spawner
 function spawnStarInit(geo, mat) {
     //Get our objects in a list
-    for (var i = 0; i < INIT_NUM_OF_STARS; i++) {
-        const tri = new THREE.Mesh(geo, mat);
+    for (var i = 0; i < INIT_NUM_OF_STAR_CLUSTERS; i++) {
+        const tri = new THREE.InstancedMesh(geo, mat, NUM_INSTANCED_STARS);
         tri.name = "star" + i;
         stars.push(tri);
     }
@@ -131,7 +133,7 @@ function spawnStarInit(geo, mat) {
 
 //Star spawner for after frame 1
 function spawnStarLater(geo, mat) {
-    const star = new THREE.Mesh(geo, mat);
+    const star = new THREE.InstancedMesh(geo, mat, NUM_INSTANCED_STARS);
     stars.push(star);
 
     //Randomize the positions and spawn them in
@@ -143,5 +145,5 @@ function spawnStarLater(geo, mat) {
 
 //Random range
 function RandomRange(min, max) {
-    return Math.random() * (max - min) + min;
+  return Math.random() * (max - min) + min;
 }
