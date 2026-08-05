@@ -81,16 +81,22 @@ camera.position.z = 3.0;
 function animate(time) {
     //Move each star in the list
     //NEW Method: random object lookup
-    let i = Math.trunc(RandomRange(0, INIT_NUM_OF_STAR_CLUSTERS));
+    let star_count = stars.length
+    let i = Math.trunc(RandomRange(0, star_count));
 
     //Discard the star if it's too far away
     if (stars[i].position.z > camera.position.z + 7) {
+        console.log("Star: " + stars[i]);
+        stars[i].geometry.dispose();
+        stars[i].material.dispose();
         scene.remove(stars[i]);
 
         //Also change the array
         if (i !== -1) {
+            console.log(stars);
             stars.splice(i,1);
         }
+
 
         //Then incrementally add stars after frame 1
         spawnStarLater(star_obj, material);
