@@ -2,6 +2,7 @@
 Star Orbit Demo
 Author: Josh Ottey
 Date: 5/29/26 08:22:00 AM EST
+Update: 8/10/26 12:55:21 PM EST
 ========================================*/
 
 //Import the libraries
@@ -85,7 +86,6 @@ function animate(time) {
 
     //Discard the star if it's too far away
     if (stars[i].position.z > camera.position.z + 7) {
-        console.log("Star: " + stars[i]);
         stars[i].geometry.dispose();
         stars[i].material.dispose();
         scene.remove(stars[i]);
