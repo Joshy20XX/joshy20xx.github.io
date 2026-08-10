@@ -72,7 +72,6 @@ const material = new THREE.MeshBasicMaterial( {
 //We want multiple star to appear so add/delete them in an array
 //We also want to spawn them in a circular fashion
 const stars = [];
-let removed = 0;
 spawnStarInit(star_obj, material);
 camera.position.z = 3.0;
 
@@ -93,7 +92,6 @@ function animate(time) {
 
         //Also change the array
         if (i !== -1) {
-            console.log(stars);
             stars.splice(i,1);
         }
 
