@@ -2,7 +2,7 @@
 Star Orbit Demo
 Author: Josh Ottey
 Date: 5/29/26 08:22:00 AM EST
-Update: 8/10/26 12:55:21 PM EST
+Update: 8/18/26 12:55:21 PM EST
 ========================================*/
 
 //Import the libraries
@@ -75,6 +75,8 @@ const material = new THREE.MeshBasicMaterial( {
 const stars = [];
 spawnStarInit(star_obj, material);
 camera.position.z = 3.0;
+//Precompile materials before drawing (TESTING)
+renderer.compile(scene, camera, scene);
 
 
 //Refresh the window
