@@ -123,9 +123,12 @@ function loadColorTexture(path) {
 function spawnStarInit(geo, mat) {
     //Get our objects in a list
     for (var i = 0; i < INIT_NUM_OF_STAR_CLUSTERS; i++) {
-        const tri = new THREE.InstancedMesh(geo, mat, NUM_INSTANCED_STARS);
-        tri.name = "star" + i;
-        stars.push(tri);
+        const star = new THREE.InstancedMesh(geo, mat, NUM_INSTANCED_STARS);
+        star.updateWorldMatrix(true,false);
+        star.geometry.computeBoundingBox();
+        star.boundingBox = new THREE.Box3().setFromObject(star);
+        star.name = "star" + i;
+        stars.push(star);
     }
 
     //For each object in star object list, randomise their positions
@@ -142,6 +145,9 @@ function spawnStarInit(geo, mat) {
 //Star spawner for after frame 1
 function spawnStarLater(geo, mat) {
     const star = new THREE.InstancedMesh(geo, mat, NUM_INSTANCED_STARS);
+    star.updateWorldMatrix(true,false);
+    star.geometry.computeBoundingBox();
+    star.boundingBox = new THREE.Box3().setFromObject(star);
     stars.push(star);
 
     //Randomize the positions and spawn them in
