@@ -30,8 +30,6 @@ timer.connect(document);
 const container = document.getElementById('threejs-backdrop');
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setAnimationLoop(animate);
-container.append(renderer.domElement);
 
 //Set scene fog color
 scene.background = new THREE.Color().setColorName("black");
@@ -77,6 +75,10 @@ spawnStarInit(star_obj, material);
 camera.position.z = 3.0;
 //Precompile materials before drawing (TESTING)
 renderer.compile(scene, camera, scene);
+
+//After precompile, then we can draw the scene
+renderer.setAnimationLoop(animate);
+container.append(renderer.domElement);
 
 
 //Refresh the window
